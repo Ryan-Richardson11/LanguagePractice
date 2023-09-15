@@ -33,6 +33,7 @@ class todoList {
     }
 
     public static void main(String[] args) {
+        todoList myList = new todoList();
         Scanner input = new Scanner(System.in);
         while (true) {
             printList();
@@ -40,20 +41,20 @@ class todoList {
             if (ans == 1){
                 System.out.println("Enter a task to add: ");
                 String task = input.next();
-                addToList(task);
+                myList.addToList(task);
             } 
             else if (ans == 2) {
                 System.out.println("Enter a task to remove: ");
                 String task = input.next();
-                deleteFromList(task);
+                myList.deleteFromList(task);
             }
             else if (ans == 3) {
                 System.out.println("Enter a task to complete: ");
                 String task = input.next();
-                completeTask(task);
+                myList.completeTask(task);
             }
             else if (ans == 3) {
-                displayList();
+                myList.displayList();
             }
             else {
                 break;
