@@ -1,65 +1,103 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-class todoList {
-    ArrayList<String> list = new ArrayList<String>();
-    boolean completed = false;
+class Task {
+    private String description;
+    private boolean isCompleted;
 
-    void addToList(String newTask){
-        list.add(newTask);
+    public Task(String description) {
+        this.description = description;
+        this.isCompleted = false;
     }
 
-    void deleteFromList(String deletedTask){
-        list.remove(deletedTask);
+    public String getDescription() {
+        return description;
     }
 
-    void displayList(){
-        System.out.println(list);
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
-    void completeTask(String completedTask){
-        completed = true;
-        System.out.println("The task " + completedTask + " has been completed.");
-        deleteFromList(completedTask);
+    public void markAsCompleted() {
+        isCompleted = true;
     }
 
-    static void printList(){
-        System.out.println("TODO List: ");
-        System.out.println("Enter 1 add a task: ");
-        System.out.println("Enter 2 remove a task: ");
-        System.out.println("Enter 3 to complete a task: ");
-        System.out.println("Enter 4 to display the list: ");
-        System.out.println("Enter any other number to exit: ");
+    @Override
+    public String toString() {
+        return description + (isCompleted ? " (Completed)" : "");
+    }
+}
+
+class TodoList {
+    private ArrayList<Task> tasks = new ArrayList<Task>();
+
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
+    public void deleteTask(Task task) {
+        tasks.remove(task);
+    }
+
+    public void displayTasks() {
+        System.out.println("TODO List:");
+        for (Task task : tasks) {
+            System.out.println(task);
+        }
     }
 
     public static void main(String[] args) {
-        todoList myList = new todoList();
+        TodoList todoList = new TodoList();
         Scanner input = new Scanner(System.in);
+
         while (true) {
-            printList();
-            int ans = input.nextInt();
-            if (ans == 1){
-                System.out.println("Enter a task to add: ");
-                String task = input.next();
-                myList.addToList(task);
-            } 
-            else if (ans == 2) {
-                System.out.println("Enter a task to remove: ");
-                String task = input.next();
-                myList.deleteFromList(task);
-            }
-            else if (ans == 3) {
-                System.out.println("Enter a task to complete: ");
-                String task = input.next();
-                myList.completeTask(task);
-            }
-            else if (ans == 3) {
-                myList.displayList();
-            }
-            else {
+            System.out.println("Enter 1 to add a task:");
+            System.out.println("Enter 2 to remove a task:");
+            System.out.println("Enter 3 to complete a task:");
+            System.out.println("Enter 4 to display the list:");
+            System.out.println("Enter any other number to exit:");
+
+            int choice = input.nextInt();
+            input.nextLine();
+
+            if (choice == 1) {
+                System.out.println("Enter a task description: ");
+                String description = input.nextLine();
+                Task newTask = new Task(description);
+                todoList.addTask(newTask);
+            } else if (choice == 2) {
+                System.out.println("Enter the description of the task to remove:");
+                String description = input.nextLine();
+                Task taskToRemove = null;
+                for (Task task : todoList.tasks) {
+                    if (task.getDescription().equals(description)) {
+                        taskToRemove = task;
+                        break;
+                    }
+                }
+                if (taskToRemove != null) {
+                    todoList.deleteTask(taskToRemove);
+                    System.out.println("Task removed.");
+                } else {
+                    System.out.println("Task not found.");
+                }
+            } else if (choice == 3) {
+                System.out.println("Enter the description of the task to complete:");
+                String description = input.nextLine();
+                for (Task task : todoList.tasks) {
+                    if (task.getDescription().equals(description)) {
+                        task.markAsCompleted();
+                        System.out.println("Task marked as completed.");
+                        break;
+                    }
+                }
+            } else if (choice == 4) {
+                todoList.displayTasks();
+            } else {
                 break;
             }
-
         }
+
+        input.close();
     }
 }
