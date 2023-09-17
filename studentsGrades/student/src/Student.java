@@ -1,4 +1,3 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Student {
@@ -21,22 +20,27 @@ public class Student {
     int averageGrade(){
         int total = 0;
         int count = 0;
-        for (int i = 0; i < gradeList; i++){
-            total += gradeList[i];
-            count += 1;
+        for (int i = 0; i < gradeList.size(); i++){
+            total += gradeList.get(i);
+            count ++;
         }
         return total / count;
     }
 
     void displayList(){
-        for (int i = 0; i < nameList; i++){
-            for (int j = 0; j < gradeList; j++){
-                System.out.println(i + " " + j +"\n");
+        for (int i = 0; i < nameList.size(); i++){
+            for (int j = 0; j < gradeList.size(); j++){
+                System.out.println(nameList.get(i) + " " + gradeList.get(j));
             }
         }
     }
 
     public static void main(String[] args) {
-
+        Student myStudents = new Student("Ryan", 85);
+        myStudents.addStudent("Sydnie", 90);
+        myStudents.addStudent("Jim", 77);
+        myStudents.displayList();
+        double average = myStudents.averageGrade();
+        System.out.println("The classes average grade is " + average);
     }
 }
