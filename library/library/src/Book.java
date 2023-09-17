@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Book{
@@ -47,6 +48,16 @@ public class Book{
         System.out.println("Books in the Library: ");
         for ( Book book : library){
             System.out.println(book.getTitle() + " " + book.getAuthor() + " " + book.checkAvailability());
+        }
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter a title to check availability: ");
+        String ans = input.nextLine();
+        for (Book book : library){
+            if ans.equals(book.getTitle()){
+                System.out.println(book.checkAvailability());
+            }
+
         }
     }
 }
