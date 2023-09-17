@@ -32,8 +32,8 @@ public class Book{
     }
 
     void makeUnavailable(){
-        if (this.availability == 'U'){
-            this.availability = 'A';
+        if (this.availability == 'A'){
+            this.availability = 'U';
         }
     }
 
