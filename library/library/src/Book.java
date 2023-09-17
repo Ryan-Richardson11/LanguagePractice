@@ -49,15 +49,22 @@ public class Book{
         for ( Book book : library){
             System.out.println(book.getTitle() + " " + book.getAuthor() + " " + book.checkAvailability());
         }
-
+        while (true){
         Scanner input = new Scanner(System.in);
         System.out.println("Enter a title to check availability: ");
         String ans = input.nextLine();
-        for (Book book : library){
-            if ans.equals(book.getTitle()){
-                System.out.println(book.checkAvailability());
-            }
-
-        }
+        boolean found = false;
+        for (Book book : library) {
+    if (ans.equalsIgnoreCase(book.getTitle())) {
+        System.out.println("Availability: " + book.checkAvailability());
+        found = true;
+        break;
     }
+}
+
+if (!found) {
+    System.out.println("Book not found in the library.");
+}
+    }
+}
 }
