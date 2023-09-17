@@ -8,6 +8,11 @@ public class Student {
     private ArrayList<String> nameList = new ArrayList<String>();
     private ArrayList<char> gradeList = new ArrayList<char>();
 
+    void addStudent(String name, char grade) {
+        nameList.add(name);
+        gradeList.add(grade);
+    }
+
     public static void main(String[] args) {
 
     }
