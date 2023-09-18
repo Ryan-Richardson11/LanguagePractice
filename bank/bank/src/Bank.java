@@ -73,7 +73,7 @@ public class Bank {
 
     void displayAccounts(ArrayList<Bank> accounts) {
         for (Bank account : accounts) {
-            System.out.println(account);
+            System.out.println(account.getName() + " " + account.getAccountNumber());
         }
     }
 
