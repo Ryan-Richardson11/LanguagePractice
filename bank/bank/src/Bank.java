@@ -68,6 +68,20 @@ public class Bank {
         }
     }
 
+    void displayAccounts(ArrayList<Bank> accounts) {
+        for (Bank account : accounts) {
+            System.out.println(account);
+        }
+    }
+
+    double totalBalance(ArrayList<Bank> accounts) {
+        double total = 0.0;
+        for (Bank account : accounts) {
+            total += account.accountBalance;
+        }
+        return total;
+    }
+
     public static void main(String[] args) {
 
     }
