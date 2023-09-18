@@ -56,7 +56,10 @@ public class Bank {
         }
     }
 
-    void accountDetails(ArrayList<Bank> accounts, int accountNumber) {
+    void accountDetails(ArrayList<Bank> accounts) {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Enter the account number: ");
+        int accountNumber = input.nextInt();
         for (Bank account : accounts) {
             if (accountNumber == account.getAccountNumber()) {
                 System.out.println("Account Details: ");
@@ -83,6 +86,31 @@ public class Bank {
     }
 
     public static void main(String[] args) {
-
+        ArrayList<Bank> bankAccounts = new ArrayList<>(null);
+        System.out.println("Banking Options: ");
+        System.out.println("Enter 1 to add an account: ");
+        System.out.println("Enter 2 to display account details: ");
+        System.out.println("Enter 3 to display all accounts: ");
+        System.out.println("Enter 4 to display total balance: ");
+        System.out.println("Enter 5 to withdraw: ");
+        System.out.println("Enter 6 to deposit: ");
+        System.out.println("Enter any other key to exit: ");
+        Scanner input = new Scanner(System.in);
+        int ans = input.nextInt();
+        if (ans == 1) {
+            addAccount(bankAccounts);
+        } else if (ans == 2) {
+            accountDetails(bankAccounts);
+        } else if (ans == 3) {
+            displayAccounts(bankAccounts);
+        } else if (ans == 4) {
+            totalBalance(bankAccounts);
+        } else if (ans == 5) {
+            withdraw();
+        } else if (ans == 6) {
+            deposit();
+        } else {
+            break;
+        }
     }
 }
