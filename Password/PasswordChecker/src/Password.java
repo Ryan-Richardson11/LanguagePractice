@@ -10,8 +10,18 @@ public class Password {
     }
 
     void checkPassword(String password) {
-        for (int i = 0; i < password.length(); i++) {
-            if 
+        if (password.length() >= 8) {
+            for (int i = 0; i < password.length(); i++) {
+                if (Character.isUpperCase(password.charAt(i))) {
+                    continue;
+                }
+                if (Character.isLowerCase(password.charAt(i))) {
+                    continue;
+                }
+                if (Character.isDigit(password.charAt(i))) {
+                    continue;
+                }
+            }
         }
     }
 
