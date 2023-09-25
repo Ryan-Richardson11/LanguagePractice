@@ -34,15 +34,32 @@ public class ShoppingCart {
             System.out.println("Enter 5 to exit the program: ");
         }
 
-        void addProduct(ArrayList<Product>) {
+        void addProduct(ArrayList<Product> cart) {
             Scanner input = new Scanner(System.in);
             System.out.println("Enter a product name: ");
             String productName = input.nextLine();
             System.out.println("Enter a product price: ");
             double price = input.nextDouble();
-            System.out.prinln("Enter the product quantity: ");
+            System.out.println("Enter the product quantity: ");
             int quantity = input.nextInt();
-            ArrayList.add(Product(productName, price, quantity));
+            cart.add(new Product(productName, price, quantity));
+            input.close();
+        }
+
+        void deleteProduct(ArrayList<Product> cart) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Enter a product name to delete: ");
+            productName = input.nextLine();
+            for (Product product : cart) {
+                if (productName == product.getProductName()){
+                    cart.remove(product);
+                }
+                else {
+                    System.out.println("The product is not in the cart.");
+                }
+            }
+            input.close();
+        }
     }
 
     public static void main(String[] args) {
