@@ -60,6 +60,20 @@ public class ShoppingCart {
             }
             input.close();
         }
+
+        public void displayCart(ArrayList<Product> cart) {
+            for (Product product: cart){
+                System.out.println(product);
+            }
+        }
+
+        public double cartCost(ArrayList<Product> cart) {
+            double total = 0;
+            for (Product product : cart) {
+                total += product.getPrice();
+            }
+            return total;
+        }
     }
 
     public static void main(String[] args) {
