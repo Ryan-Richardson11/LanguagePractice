@@ -14,27 +14,27 @@ public class ShoppingCart {
             this.quantity = quantity;
         }
 
-        String getProductName() {
+        public String getProductName() {
             return productName;
         }
 
-        double getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        int getQuantity() {
+        public int getQuantity() {
             return quantity;
         }
 
-        void displayOptions() {
+        public void displayOptions() {
             System.out.println("Enter 1 to add a product: ");
             System.out.println("Enter 2 to remove a product: ");
             System.out.println("Enter 3 to view a the cart: ");
             System.out.println("Enter 4 to view the total cost: ");
-            System.out.println("Enter 5 to exit the program: ");
+            System.out.println("Enter anything else to exit the program: ");
         }
 
-        void addProduct(ArrayList<Product> cart) {
+        public void addProduct(ArrayList<Product> cart) {
             Scanner input = new Scanner(System.in);
             System.out.println("Enter a product name: ");
             String productName = input.nextLine();
@@ -46,7 +46,7 @@ public class ShoppingCart {
             input.close();
         }
 
-        void deleteProduct(ArrayList<Product> cart) {
+        public void deleteProduct(ArrayList<Product> cart) {
             Scanner input = new Scanner(System.in);
             System.out.println("Enter a product name to delete: ");
             productName = input.nextLine();
@@ -63,6 +63,28 @@ public class ShoppingCart {
     }
 
     public static void main(String[] args) {
+        ShoppingCart shopping = new ShoppingCart();
         ArrayList<Product> cart = new ArrayList<>();
+        shopping.displayOptions();
+        Scanner input = new Scanner(System.in);
+        int ans = input.nextInt();
+        if (ans == 1) {
+            addProduct(cart);
+        }
+        else if (ans == 2) {
+            deleteProduct(cart);
+        }
+        else if (ans == 3) {
+
+        }
+        else if (ans == 4) {
+
+        }
+        else if (ans == 5) {
+
+        }
+        else {
+            break;
+        }
     }
 }
