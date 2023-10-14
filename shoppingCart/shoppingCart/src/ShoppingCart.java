@@ -89,13 +89,10 @@ public class ShoppingCart {
             deleteProduct(cart);
         }
         else if (ans == 3) {
-
+            displayCart(cart);
         }
         else if (ans == 4) {
-
-        }
-        else if (ans == 5) {
-
+            cartCost(cart);
         }
         else {
             break;
