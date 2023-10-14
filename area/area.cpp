@@ -1,14 +1,17 @@
 #include <iostream>
 
 using namespace std;
-
-void calculateArea(int length, int width){
+// Basic area calculation given length and width
+void calculateArea(int length, int width)
+{
     int area;
     area = length * width;
     cout << "The area of the rectangle is " << area << endl;
 }
 
-int main(){
+int main()
+{
+    // Asks for input which is used as function parameters
     int length;
     int width;
     cout << "Please enter the rectangles length: ";
