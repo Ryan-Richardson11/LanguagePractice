@@ -6,7 +6,7 @@ public class AddressBook {
 
     public AddressBook() {
         String name;
-        int phoneNumber;
+        String phoneNumber;
         String email;
     }
 
@@ -31,7 +31,7 @@ public class AddressBook {
         }
     }
 
-    void searchContact(int phoneNumber) {
+    void searchContact(String phoneNumber) {
         for (Contact contact : book) {
             if (contact.getphoneNumber() == phoneNumber) {
                 System.out.println(contact.getName());
@@ -54,7 +54,7 @@ public class AddressBook {
 
                 System.out.println("Update the contacts number: ");
                 Scanner updateNumber = new Scanner(System.in);
-                int newNumber = updateNumber.nextInt();
+                String newNumber = updateNumber.nextLine();
                 contact.setphoneNumber(newNumber);
 
                 System.out.println("Update the contacts email: ");
@@ -69,6 +69,7 @@ public class AddressBook {
     }
 
     public static void main(String[] args) {
-
+        AddressBook addressBook = new AddressBook();
+        addressBook.addContact("Ryan", "9783021710", "ryanrich811@gmail.com");
     }
 }
