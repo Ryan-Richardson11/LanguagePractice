@@ -17,7 +17,10 @@ public class AddressBook {
     
     void displayContacts() {
         for (Contact contact : book) {
-            System.out.println(contact);
+            System.out.println(contact.getName());
+            System.out.println(contact.getphoneNumber());
+            System.out.println(contact.getEmail());
+            System.out.println("----------------------------");
         }
     }
 
@@ -46,7 +49,7 @@ public class AddressBook {
         Scanner input = new Scanner(System.in);
         String name = input.nextLine();
         for (Contact contact : book) {
-            if (contact.getName() == name) {
+            if (contact.getName().equals(name)) {
                 System.out.println("Update the contacts name: ");
                 Scanner updateName = new Scanner(System.in);
                 String newName = updateName.nextLine();
@@ -75,5 +78,11 @@ public class AddressBook {
         addressBook.addContact("Sydnie", 6463, "Sydniedrattee@gmail.com");
         addressBook.addContact("Mike", 9063, "MikeSmith@gmail.com");
         addressBook.addContact("John", 1123, "JohnDoe@gmail.com");
+
+        addressBook.displayContacts();
+
+        addressBook.searchContact("Ryan");
+
+        addressBook.updateContact();
     }
 }
