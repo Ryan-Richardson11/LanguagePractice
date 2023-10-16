@@ -15,16 +15,20 @@ public class file {
         else {
             System.out.println("File could not be created");
         }
-
     }
 
     void deleteFile() {
         System.out.println("Enter your files full path: ");
         Scanner input = new Scanner(System.in);
-        String fileToDelete = input.nextLine();
+        String fileToDeletePath = input.nextLine();
         input.close();
-        fileToDelete.delete();
-        System.out.println("The file has been deleted.");
+        File fileToDelete = new File(fileToDeletePath);
+        if (fileToDelete.delete()) {
+            System.out.println("The file has been deleted.");
+        }
+        else {
+            System.out.println("The file could not be deleted.");
+        }
     }
 
     void moveFile() {
