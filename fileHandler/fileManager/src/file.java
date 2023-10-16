@@ -32,7 +32,13 @@ public class file {
     }
 
     void moveFile() {
-
+        System.out.println("Enter the full path of the file you would like to move: ");
+        Scanner input = new Scanner(System.in);
+        String fileToMovePath = input.nextLine();
+        File fileToMove = new File(fileToMovePath);
+        System.out.println("Enter a path to move the file: ");
+        String newPath = input.nextLine();
+        fileToMove.renameTo(newPath);
     }
 
     void searchFile() {
