@@ -2,7 +2,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
 
 public class file {
 
@@ -80,7 +83,19 @@ public class file {
     }
 
     void fileContents() {
-
+        System.out.println("Enter the file you would like to see the contents of: ");
+        Scanner input = new Scanner(System.in);
+        String fileContents = input.nextLine();
+        input.close();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileContents));
+            while (reader.nextLine()) {
+                String currentLine = reader.readLine();
+                System.out.println(currentLine + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
