@@ -25,14 +25,16 @@ public class file {
     void deleteFile() {
         System.out.println("Enter your files full path: ");
         Scanner input = new Scanner(System.in);
-        String fileToDeletePath = input.nextLine();
+        String fileToDelete = input.nextLine();
         input.close();
-        File fileToDelete = new File(fileToDeletePath);
-        if (fileToDelete.delete()) {
-            System.out.println("The file has been deleted.");
-        }
-        else {
-            System.out.println("The file could not be deleted.");
+        Path path = Paths.get(fileToDelete);
+        try {
+            if (Files.exists(path)) {
+                Files.delete(path);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
