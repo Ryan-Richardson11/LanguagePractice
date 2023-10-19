@@ -1,19 +1,24 @@
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.util.Scanner;
+import java.io.IOException;
 
 public class file {
 
     void createFile() {
-        System.out.println("Enter a file to create: ");
+        System.out.println("Enter a file path to create: ");
         Scanner input = new Scanner(System.in);
         String newFile = input.nextLine();
         input.close();
-        File myFile = new File(newFile);
-        if (myFile.createNewFile()) {
-            System.out.println("File " + newFile + " was created");
-        }
-        else {
-            System.out.println("File could not be created");
+        Path path = Paths.get(newFile);
+        try {
+            if (Files.notExists(path)) {
+                Files.createFile(path);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -38,7 +43,7 @@ public class file {
         File fileToMove = new File(fileToMovePath);
         System.out.println("Enter a path to move the file: ");
         String newPath = input.nextLine();
-        fileToMove.renameTo(newPath);
+        copy(fileToMove, newPath);
     }
 
     void searchFile() {
