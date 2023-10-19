@@ -56,11 +56,27 @@ public class file {
     }
 
     void searchFile() {
-
+        System.out.println("Enter the file path to search: ");
+        Scanner input = new Scanner(System.in);
+        Path fileToSearch = Paths.get(input.nextLine());
+        input.close();
+        if (Files.exists(fileToSearch)) {
+            System.out.println("File exists");
+        } else {
+            System.out.println("File does not exist");
+        }
     }
 
     void displayDirectory() {
-
+        System.out.println("Enter the directory to display : ");
+        Scanner input = new Scanner(System.in);
+        Path directoryToDisplay = Paths.get(input.nextLine());
+        input.close();
+        if (Files.isDirectory(directoryToDisplay)) {
+            for (Path file : directoryToDisplay) {
+                System.out.println(file);
+            }
+        }
     }
 
     void fileContents() {
