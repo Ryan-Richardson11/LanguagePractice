@@ -63,11 +63,13 @@ public class file {
         Scanner input = new Scanner(System.in);
         Path fileToSearch = Paths.get(input.nextLine());
         input.close();
+
         if (Files.exists(fileToSearch)) {
             System.out.println("File exists");
         } else {
             System.out.println("File does not exist");
         }
+
     }
 
     void displayDirectory() {
@@ -89,7 +91,7 @@ public class file {
         input.close();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileContents));
-            while (reader.nextLine()) {
+            while (fileContents.nextLine()) {
                 String currentLine = reader.readLine();
                 System.out.println(currentLine + "\n");
             }
