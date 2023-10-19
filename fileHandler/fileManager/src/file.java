@@ -41,11 +41,18 @@ public class file {
     void moveFile() {
         System.out.println("Enter the full path of the file you would like to move: ");
         Scanner input = new Scanner(System.in);
-        String fileToMovePath = input.nextLine();
-        File fileToMove = new File(fileToMovePath);
+        Path fileToMovePath = Paths.get(input.nextLine());
         System.out.println("Enter a path to move the file: ");
-        String newPath = input.nextLine();
-        copy(fileToMove, newPath);
+        Path newPath = Paths.get(input.nextLine());
+        input.close();
+        try {
+            if (Files.exists(fileToMovePath)) {
+                Files.copy(fileToMovePath, newPath);
+                Files.delete(fileToMovePath);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     void searchFile() {
