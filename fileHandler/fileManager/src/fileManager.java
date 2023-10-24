@@ -10,6 +10,7 @@ public class fileManager {
             System.out.println("4: Search a file");
             System.out.println("5: Display a directory");
             System.out.println("6: Display file contents");
+            System.out.println("Enter anything else to exit");
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
             file myFile = new file();
@@ -30,6 +31,9 @@ public class fileManager {
             }
             else if (choice == 6) {
                 myFile.fileContents();
+            }
+            else {
+                break;
             }
         }
     }
