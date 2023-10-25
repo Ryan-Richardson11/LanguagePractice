@@ -19,7 +19,6 @@ public class file {
             if (Files.notExists(path)) {
                 Files.createFile(path);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,7 +34,6 @@ public class file {
             if (Files.exists(path)) {
                 Files.delete(path);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +67,6 @@ public class file {
         } else {
             System.out.println("File does not exist");
         }
-
     }
 
     void displayDirectory() {
@@ -99,8 +96,4 @@ public class file {
             e.printStackTrace();
         }
     }
-
 }
-
-
-
