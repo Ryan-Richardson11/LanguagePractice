@@ -18,6 +18,7 @@ public class file {
         try {
             if (Files.notExists(path)) {
                 Files.createFile(path);
+                System.out.println("File Created \n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,9 +89,9 @@ public class file {
         input.close();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileContents));
-            while (fileContents.nextLine()) {
-                String currentLine = reader.readLine();
-                System.out.println(currentLine + "\n");
+            String currentLine;
+            while ((currentLine = reader.readLine()) != null) {
+                System.out.println(currentLine);
             }
         } catch (IOException e) {
             e.printStackTrace();
