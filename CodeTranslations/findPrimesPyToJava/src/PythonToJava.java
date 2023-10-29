@@ -15,8 +15,8 @@ public class PythonToJava {
                 primeNumbers.add(num);
             }
             }
-        return primeNumbers;
         }
+        return primeNumbers;
     }
 
 
