@@ -29,6 +29,4 @@ public class PythonToJava {
         System.out.println("The second smallest number is: " +result);
 
     }
-
-
 }
