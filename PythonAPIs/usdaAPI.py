@@ -2,7 +2,7 @@ import requests
 
 def get_food_information(food):
     # API Key Hidden
-    url = f'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=&query={food}'
+    url = f'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=jkJE59KKTValhKPYJsbSUuMFWaIPm1xvUL0LQ5C2&query={food}'
     response = requests.get(url)
 
     try:
