@@ -9,6 +9,10 @@ public class Quiz {
         this.questions = questions;
     }
 
+    void addQuestion() {
+        Questions question = new Questions
+    }
+
     int takeQuiz() {
         Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < questions.length; i++) {
