@@ -4,7 +4,7 @@ import static utilz.Constants.PlayerConstants.ATTACK_1;
 import static utilz.Constants.PlayerConstants.GetSpriteAmount;
 import static utilz.Constants.PlayerConstants.IDLE;
 import static utilz.Constants.PlayerConstants.RUNNING;
-import static utilz.HelpMethods.CanMoveHere;
+import static utilz.HelpMethods.*;
 
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
@@ -86,6 +86,10 @@ public class Player extends Entity {
     private void updatePOS() {
 
         moving = false;
+
+        if (jump) {
+            jump();
+        }
         if (!left && !right && !inAir) {
             return;
         }
@@ -99,11 +103,36 @@ public class Player extends Entity {
             xSpeed += playerSpeed;
         }
         if (inAir) {
-
+            if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
+                hitbox.y += airSpeed;
+                airSpeed += gravity;
+                updateXPos(xSpeed);
+            } else {
+                hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
+                if (airSpeed > 0) {
+                    resetInAir();
+                } else {
+                    airSpeed = fallSpeedAfterCollision;
+                }
+                updateXPos(xSpeed);
+            }
         } else {
             updateXPos(xSpeed);
         }
+        moving = true;
+    }
 
+    private void jump() {
+        if (inAir) {
+            return;
+        }
+        inAir = true;
+        airSpeed = jumpSpeed;
+    }
+
+    private void resetInAir() {
+        inAir = false;
+        airSpeed = 0;
     }
 
     private void updateXPos(float xSpeed) {
@@ -111,18 +140,6 @@ public class Player extends Entity {
             hitbox.x += xSpeed;
         } else {
             hitbox.x = GetEntityXPosNextToWall(hitbox, xSpeed);
-        }
-    }
-
-    public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed) {
-
-        int currentTile = (int) (hitbox.x / Game.TILES_SIZE);
-        if (xSpeed > 0) {
-            int tileXPos = currentTile * Game.TILES_SIZE;
-            int xOffset = (int) (Game.TILES_SIZE - hitbox.width);
-            return tileXPos + (xOffset - 1);
-        } else {
-            return currentTile * Game.TILES_SIZE;
         }
     }
 
@@ -183,6 +200,10 @@ public class Player extends Entity {
 
     public void setDown(boolean down) {
         this.down = down;
+    }
+
+    public void setJump(boolean jump) {
+        this.jump = jump;
     }
 
 }
