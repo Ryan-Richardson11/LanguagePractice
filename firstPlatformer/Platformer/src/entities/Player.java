@@ -1,13 +1,14 @@
 package entities;
 
 import static utilz.Constants.PlayerConstants.ATTACK_1;
+import static utilz.Constants.PlayerConstants.FALLING;
 import static utilz.Constants.PlayerConstants.GetSpriteAmount;
 import static utilz.Constants.PlayerConstants.IDLE;
 import static utilz.Constants.PlayerConstants.RUNNING;
+import static utilz.Constants.PlayerConstants.JUMP;
 import static utilz.HelpMethods.*;
 
 import java.awt.Graphics;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import main.Game;
@@ -34,7 +35,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimations();
-        intiHitbox(x, y, 20 * Game.SCALE, 28 * Game.SCALE);
+        intiHitbox(x, y, 20 * Game.SCALE, 27 * Game.SCALE);
     }
 
     public void update() {
@@ -46,7 +47,7 @@ public class Player extends Entity {
     public void render(Graphics g) {
         g.drawImage(animations[playerAction][aniIndex], (int) (hitbox.x - xDrawOffset), (int) (hitbox.y - yDrawOffset),
                 width, height, null);
-        drawHitbox(g);
+        // drawHitbox(g);
 
     }
 
@@ -69,6 +70,13 @@ public class Player extends Entity {
             playerAction = RUNNING;
         } else {
             playerAction = IDLE;
+        }
+        if (inAir) {
+            if (airSpeed > 0) {
+                playerAction = JUMP;
+            } else {
+                playerAction = FALLING;
+            }
         }
         if (attacking) {
             playerAction = ATTACK_1;
@@ -101,6 +109,11 @@ public class Player extends Entity {
         }
         if (right) {
             xSpeed += playerSpeed;
+        }
+        if (inAir) {
+            if (!IsEntitiyOnFloor(hitbox, lvlData)) {
+                inAir = true;
+            }
         }
         if (inAir) {
             if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, lvlData)) {
@@ -157,6 +170,9 @@ public class Player extends Entity {
 
     public void loadLvlData(int[][] lvlData) {
         this.lvlData = lvlData;
+        if (!IsEntitiyOnFloor(hitbox, lvlData)) {
+            inAir = true;
+        }
     }
 
     public void resetDirBooleans() {
