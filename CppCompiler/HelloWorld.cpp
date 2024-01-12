@@ -1,7 +1,17 @@
 #include <iostream>
 using namespace std;
 
-int main()
+enum class TokenType
+{
+
+}
+
+struct Token
+{
+
+}
+
+main()
 {
     cout << "Hello World";
     return 0;
