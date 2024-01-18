@@ -1,23 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cctype>
-
-// Define token types
-enum class TokenType
-{
-    NUMBER,
-    OPERATOR,
-    OPEN_PAREN,
-    CLOSE_PAREN,
-    END_OF_INPUT
-};
-
-// Define a structure for tokens
-struct Token
-{
-    TokenType type;
-    std::string value;
-};
+#include "lexer.h"
 
 // Lexer function to tokenize the input expression
 std::vector<Token> lexer(const std::string &input)
@@ -39,28 +23,28 @@ std::vector<Token> lexer(const std::string &input)
         {
             if (!currentToken.empty())
             {
-                tokens.push_back({TokenType::NUMBER, currentToken});
+                tokens.push_back({TokenType::NUM, currentToken});
                 currentToken.clear();
             }
-            tokens.push_back({TokenType::OPERATOR, std::string(1, ch)});
+            tokens.push_back({TokenType::OP, std::string(1, ch)});
         }
         else if (ch == '(')
         {
             if (!currentToken.empty())
             {
-                tokens.push_back({TokenType::NUMBER, currentToken});
+                tokens.push_back({TokenType::NUM, currentToken});
                 currentToken.clear();
             }
-            tokens.push_back({TokenType::OPEN_PAREN, "("});
+            tokens.push_back({TokenType::OPEN, "("});
         }
         else if (ch == ')')
         {
             if (!currentToken.empty())
             {
-                tokens.push_back({TokenType::NUMBER, currentToken});
+                tokens.push_back({TokenType::NUM, currentToken});
                 currentToken.clear();
             }
-            tokens.push_back({TokenType::CLOSE_PAREN, ")"});
+            tokens.push_back({TokenType::CLOSE, ")"});
         }
         else
         {
@@ -72,45 +56,9 @@ std::vector<Token> lexer(const std::string &input)
     // Handle the last token
     if (!currentToken.empty())
     {
-        tokens.push_back({TokenType::NUMBER, currentToken});
+        tokens.push_back({TokenType::NUM, currentToken});
     }
 
-    tokens.push_back({TokenType::END_OF_INPUT, ""});
+    tokens.push_back({TokenType::END, ""});
     return tokens;
-}
-
-int main()
-{
-    // Example input expression: "3 + (4 * 5)"
-    std::string inputExpression = "3 + (4 * 5)";
-
-    // Tokenize the input expression
-    std::vector<Token> tokens = lexer(inputExpression);
-
-    // Print the tokens
-    for (const auto &token : tokens)
-    {
-        std::cout << "Type: ";
-        switch (token.type)
-        {
-        case TokenType::NUMBER:
-            std::cout << "NUMBER";
-            break;
-        case TokenType::OPERATOR:
-            std::cout << "OPERATOR";
-            break;
-        case TokenType::OPEN_PAREN:
-            std::cout << "OPEN_PAREN";
-            break;
-        case TokenType::CLOSE_PAREN:
-            std::cout << "CLOSE_PAREN";
-            break;
-        case TokenType::END_OF_INPUT:
-            std::cout << "END_OF_INPUT";
-            break;
-        }
-        std::cout << ", Value: " << token.value << '\n';
-    }
-
-    return 0;
 }
