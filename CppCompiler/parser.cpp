@@ -11,39 +11,31 @@ struct ASTNode
     std::vector<ASTNode> children;
 };
 
-// Parser class for better organization
-class Parser
-{
-public:
-    Parser(const std::vector<Token> &tokens) : tokens(tokens), currentToken(tokens.begin()) {}
+// Parser function to build the Abstract Syntax Tree (AST)
+ASTNode parseExpression(std::vector<Token> &tokens);
 
-    ASTNode parseExpression();
-    ASTNode parsePrimary();
-    ASTNode parseFactor();
-    ASTNode parseTerm();
+// Helper function to match a specific token type
+bool match(TokenType expected, std::vector<Token> &tokens);
 
-private:
-    const std::vector<Token> &tokens;
-    std::vector<Token>::const_iterator currentToken;
-
-    bool match(TokenType expected);
-    void advance();
-};
+// Recursive descent parser for expressions
+ASTNode parsePrimary(std::vector<Token> &tokens);
+ASTNode parseFactor(std::vector<Token> &tokens);
+ASTNode parseTerm(std::vector<Token> &tokens);
+ASTNode parseExpression(std::vector<Token> &tokens);
 
 // Print AST for visualization
 void printAST(const ASTNode &node, int level = 0);
 
 int main()
 {
-    // Example input expression: "7 * (4 / 5)"
-    std::string inputExpression = "7 * (4 / 5)";
+    // Example input expression: "7 * (4 / 2)"
+    std::string inputExpression = "7 * (4 / 2)";
 
     // Tokenize the input expression
     std::vector<Token> tokens = lexer(inputExpression);
 
-    // Create a parser and parse the input to build the AST
-    Parser parser(tokens);
-    ASTNode root = parser.parseExpression();
+    // Parse the input and build the AST
+    ASTNode root = parseExpression(tokens);
 
     // Print the AST
     std::cout << "Abstract Syntax Tree (AST):\n";
@@ -53,22 +45,33 @@ int main()
 }
 
 // Parser function to build the Abstract Syntax Tree (AST) for expressions
-ASTNode Parser::parseExpression()
+ASTNode parseExpression(std::vector<Token> &tokens)
 {
-    return parseTerm();
+    return parseTerm(tokens);
+}
+
+// Helper function to match a specific token type
+bool match(TokenType expected, std::vector<Token> &tokens)
+{
+    if (!tokens.empty() && tokens.front().type == expected)
+    {
+        tokens.erase(tokens.begin());
+        return true;
+    }
+    return false;
 }
 
 // Recursive descent parser for primary expressions
-ASTNode Parser::parsePrimary()
+ASTNode parsePrimary(std::vector<Token> &tokens)
 {
-    if (match(TokenType::NUM))
+    if (match(TokenType::NUM, tokens))
     {
-        return {TokenType::NUM, currentToken->value, {}};
+        return {TokenType::NUM, tokens.back().value, {}};
     }
-    else if (match(TokenType::OPEN))
+    else if (match(TokenType::OPEN, tokens))
     {
-        ASTNode expression = parseExpression();
-        if (match(TokenType::CLOSE))
+        ASTNode expression = parseExpression(tokens);
+        if (match(TokenType::CLOSE, tokens))
         {
             return expression;
         }
@@ -81,57 +84,36 @@ ASTNode Parser::parsePrimary()
     {
         std::cerr << "Error: Expected number or opening parenthesis.\n";
     }
-
     // Return an empty node in case of an error
     return {TokenType::NUM, "", {}};
 }
 
 // Recursive descent parser for factor expressions (multiplication and division)
-ASTNode Parser::parseFactor()
+ASTNode parseFactor(std::vector<Token> &tokens)
 {
-    ASTNode left = parsePrimary();
+    ASTNode left = parsePrimary(tokens);
 
-    while (match(TokenType::OP) && (currentToken->value == "*" || currentToken->value == "/"))
+    while (match(TokenType::OP, tokens) && (tokens.back().value == "*" || tokens.back().value == "/"))
     {
-        ASTNode right = parsePrimary();
-        left = {TokenType::OP, currentToken->value, {left, right}};
+        ASTNode right = parsePrimary(tokens);
+        left = {TokenType::OP, tokens.back().value, {left, right}};
     }
 
     return left;
 }
 
 // Recursive descent parser for term expressions (addition and subtraction)
-ASTNode Parser::parseTerm()
+ASTNode parseTerm(std::vector<Token> &tokens)
 {
-    ASTNode left = parseFactor();
+    ASTNode left = parseFactor(tokens);
 
-    while (match(TokenType::OP) && (currentToken->value == "+" || currentToken->value == "-"))
+    while (match(TokenType::OP, tokens) && (tokens.back().value == "+" || tokens.back().value == "-"))
     {
-        ASTNode right = parseFactor();
-        left = {TokenType::OP, currentToken->value, {left, right}};
+        ASTNode right = parseFactor(tokens);
+        left = {TokenType::OP, tokens.back().value, {left, right}};
     }
 
     return left;
-}
-
-// Helper function to match a specific token type
-bool Parser::match(TokenType expected)
-{
-    if (currentToken != tokens.end() && currentToken->type == expected)
-    {
-        advance();
-        return true;
-    }
-    return false;
-}
-
-// Advance the current token iterator
-void Parser::advance()
-{
-    if (currentToken != tokens.end())
-    {
-        ++currentToken;
-    }
 }
 
 // Print AST for visualization

@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-// Define token types
+// Defines token types
 enum class TokenType
 {
     NUM,
@@ -13,7 +13,7 @@ enum class TokenType
     END
 };
 
-// Define a structure for tokens
+// Defines a structure for tokens
 struct Token
 {
     TokenType type;
