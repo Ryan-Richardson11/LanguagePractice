@@ -5,8 +5,9 @@
 
 int main()
 {
-    // Example input expression: "7 * (4 / 2)"
-    std::string inputExpression = "7 * (4 / 2)";
+    std::cout << "Enter an expression: ";
+    std::string inputExpression;
+    std::getline(std::cin, inputExpression);
 
     // Tokenize the input expression
     std::vector<Token> tokens = lexer(inputExpression);
