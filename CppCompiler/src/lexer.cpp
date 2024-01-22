@@ -49,7 +49,7 @@ std::vector<Token> lexer(const std::string &input)
         else
         {
             std::cerr << "Error: Invalid character '" << ch << "' in input.\n";
-            return {};
+            return {}; // Return an empty vector indicating an error
         }
     }
 

@@ -1,91 +1,40 @@
 #include <iostream>
-#include <vector>
-#include <cctype>
-#include "lexer.h"
-
-// Define a structure for AST nodes
-struct ASTNode
-{
-    TokenType type;
-    std::string value;
-    std::vector<ASTNode> children;
-};
-
-// Parser function to build the Abstract Syntax Tree (AST)
-ASTNode parseExpression(std::vector<Token> &tokens);
-
-// Helper function to match a specific token type
-bool match(TokenType expected, std::vector<Token> &tokens);
-
-// Recursive descent parser for expressions
-ASTNode parsePrimary(std::vector<Token> &tokens);
-ASTNode parseFactor(std::vector<Token> &tokens);
-ASTNode parseTerm(std::vector<Token> &tokens);
-ASTNode parseExpression(std::vector<Token> &tokens);
-
-// Print AST for visualization
-void printAST(const ASTNode &node, int level = 0);
-
-int main()
-{
-    // Example input expression: "7 * (4 / 2)"
-    std::string inputExpression = "7 * (4 / 2)";
-
-    // Tokenize the input expression
-    std::vector<Token> tokens = lexer(inputExpression);
-
-    // Parse the input and build the AST
-    ASTNode root = parseExpression(tokens);
-
-    // Print the AST
-    std::cout << "Abstract Syntax Tree:\n";
-    printAST(root);
-
-    return 0;
-}
-
-// Parser function to build the Abstract Syntax Tree (AST) for expressions
-ASTNode parseExpression(std::vector<Token> &tokens)
-{
-    return parseTerm(tokens);
-}
-
-// Helper function to match a specific token type
-bool match(TokenType expected, std::vector<Token> &tokens)
-{
-    if (!tokens.empty() && tokens.front().type == expected)
-    {
-        tokens.erase(tokens.begin());
-        return true;
-    }
-    return false;
-}
+#include "parser.h"
 
 // Recursive descent parser for primary expressions
 ASTNode parsePrimary(std::vector<Token> &tokens)
 {
-    if (match(TokenType::NUM, tokens))
+    if (tokens.empty())
     {
-        return {TokenType::NUM, tokens.back().value, {}};
+        std::cerr << "Error: Unexpected end of input.\n";
+        return {TokenType::NUM, "", {}};
     }
-    else if (match(TokenType::OPEN, tokens))
+
+    Token token = tokens.front();
+    tokens.erase(tokens.begin());
+
+    if (token.type == TokenType::NUM)
+    {
+        return {TokenType::NUM, token.value, {}};
+    }
+    else if (token.type == TokenType::OPEN)
     {
         ASTNode expression = parseExpression(tokens);
-        if (match(TokenType::CLOSE, tokens))
-        {
-            return expression;
-        }
-        else
+
+        if (tokens.empty() || tokens.front().type != TokenType::CLOSE)
         {
             std::cerr << "Error: Expected closing parenthesis.\n";
+            return {TokenType::NUM, "", {}};
         }
+
+        tokens.erase(tokens.begin()); // Consume the ')'
+        return expression;
     }
     else
     {
-        std::cerr << "Error: Expected number or opening parenthesis.\n";
+        std::cerr << "Error: Unexpected token '" << token.value << "'.\n";
+        return {TokenType::NUM, "", {}};
     }
-    // Return an empty node in case of an error
-    return {TokenType::NUM, "", {}};
 }
 
 // Recursive descent parser for factor expressions (multiplication and division)
@@ -93,11 +42,13 @@ ASTNode parseFactor(std::vector<Token> &tokens)
 {
     ASTNode left = parsePrimary(tokens);
 
-    while (match(TokenType::OP, tokens) && (tokens.back().value == "*" || tokens.back().value == "/"))
+    while (!tokens.empty() && (tokens.front().value == "*" || tokens.front().value == "/"))
     {
-        std::string op = tokens.back().value; // Save the operator
+        std::string op = tokens.front().value;
+        tokens.erase(tokens.begin());
+
         ASTNode right = parsePrimary(tokens);
-        left = {TokenType::OP, op, {left, right}}; // Use the operator as the value
+        left = {TokenType::OP, op, {left, right}};
     }
 
     return left;
@@ -108,14 +59,22 @@ ASTNode parseTerm(std::vector<Token> &tokens)
 {
     ASTNode left = parseFactor(tokens);
 
-    while (match(TokenType::OP, tokens) && (tokens.back().value == "+" || tokens.back().value == "-"))
+    while (!tokens.empty() && (tokens.front().value == "+" || tokens.front().value == "-"))
     {
-        std::string op = tokens.back().value; // Save the operator
+        std::string op = tokens.front().value;
+        tokens.erase(tokens.begin());
+
         ASTNode right = parseFactor(tokens);
-        left = {TokenType::OP, op, {left, right}}; // Use the operator as the value
+        left = {TokenType::OP, op, {left, right}};
     }
 
     return left;
+}
+
+// Top-level parser function for expressions
+ASTNode parseExpression(std::vector<Token> &tokens)
+{
+    return parseTerm(tokens);
 }
 
 // Print AST for visualization
@@ -125,7 +84,15 @@ void printAST(const ASTNode &node, int level)
     {
         std::cout << "  ";
     }
-    std::cout << "Type: " << static_cast<int>(node.type) << ", Value: " << node.value << '\n';
+
+    std::cout << "Type: " << static_cast<int>(node.type);
+
+    if (!node.value.empty())
+    {
+        std::cout << ", Value: " << node.value;
+    }
+
+    std::cout << '\n';
 
     for (const auto &child : node.children)
     {

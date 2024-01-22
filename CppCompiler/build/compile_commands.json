@@ -1,14 +1,26 @@
 [
 {
   "directory": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/build",
-  "command": "C:\\MinGW\\bin\\g++.exe   -g -o CMakeFiles\\CppCompiler.dir\\src\\lexer.cpp.obj -c C:\\Users\\Ryan\\Desktop\\PracticePrograms\\CppCompiler\\src\\lexer.cpp",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=gnu++11 -o CMakeFiles\\main.dir\\src\\lexer.cpp.obj -c C:\\Users\\Ryan\\Desktop\\PracticePrograms\\CppCompiler\\src\\lexer.cpp",
   "file": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/src/lexer.cpp",
-  "output": "CMakeFiles/CppCompiler.dir/src/lexer.cpp.obj"
+  "output": "CMakeFiles/main.dir/src/lexer.cpp.obj"
 },
 {
   "directory": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/build",
-  "command": "C:\\MinGW\\bin\\g++.exe   -g -o CMakeFiles\\CppCompiler.dir\\src\\parser.cpp.obj -c C:\\Users\\Ryan\\Desktop\\PracticePrograms\\CppCompiler\\src\\parser.cpp",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=gnu++11 -o CMakeFiles\\main.dir\\src\\parser.cpp.obj -c C:\\Users\\Ryan\\Desktop\\PracticePrograms\\CppCompiler\\src\\parser.cpp",
   "file": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/src/parser.cpp",
-  "output": "CMakeFiles/CppCompiler.dir/src/parser.cpp.obj"
+  "output": "CMakeFiles/main.dir/src/parser.cpp.obj"
+},
+{
+  "directory": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=gnu++11 -o CMakeFiles\\main.dir\\src\\evaluator.cpp.obj -c C:\\Users\\Ryan\\Desktop\\PracticePrograms\\CppCompiler\\src\\evaluator.cpp",
+  "file": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/src/evaluator.cpp",
+  "output": "CMakeFiles/main.dir/src/evaluator.cpp.obj"
+},
+{
+  "directory": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/build",
+  "command": "C:\\MinGW\\bin\\g++.exe  @CMakeFiles/main.dir/includes_CXX.rsp -g -std=gnu++11 -o CMakeFiles\\main.dir\\src\\main.cpp.obj -c C:\\Users\\Ryan\\Desktop\\PracticePrograms\\CppCompiler\\src\\main.cpp",
+  "file": "C:/Users/Ryan/Desktop/PracticePrograms/CppCompiler/src/main.cpp",
+  "output": "CMakeFiles/main.dir/src/main.cpp.obj"
 }
 ]

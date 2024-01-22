@@ -116,24 +116,48 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CppCompiler
+# Target rules for targets named main
 
 # Build rule for target.
-CppCompiler: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CppCompiler
-.PHONY : CppCompiler
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 main
+.PHONY : main
 
 # fast build rule for target.
-CppCompiler/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/build
-.PHONY : CppCompiler/fast
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+src/evaluator.obj: src/evaluator.cpp.obj
+.PHONY : src/evaluator.obj
+
+# target to build an object file
+src/evaluator.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/evaluator.cpp.obj
+.PHONY : src/evaluator.cpp.obj
+
+src/evaluator.i: src/evaluator.cpp.i
+.PHONY : src/evaluator.i
+
+# target to preprocess a source file
+src/evaluator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/evaluator.cpp.i
+.PHONY : src/evaluator.cpp.i
+
+src/evaluator.s: src/evaluator.cpp.s
+.PHONY : src/evaluator.s
+
+# target to generate assembly for a file
+src/evaluator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/evaluator.cpp.s
+.PHONY : src/evaluator.cpp.s
 
 src/lexer.obj: src/lexer.cpp.obj
 .PHONY : src/lexer.obj
 
 # target to build an object file
 src/lexer.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/src/lexer.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/lexer.cpp.obj
 .PHONY : src/lexer.cpp.obj
 
 src/lexer.i: src/lexer.cpp.i
@@ -141,7 +165,7 @@ src/lexer.i: src/lexer.cpp.i
 
 # target to preprocess a source file
 src/lexer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/src/lexer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/lexer.cpp.i
 .PHONY : src/lexer.cpp.i
 
 src/lexer.s: src/lexer.cpp.s
@@ -149,15 +173,39 @@ src/lexer.s: src/lexer.cpp.s
 
 # target to generate assembly for a file
 src/lexer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/src/lexer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/lexer.cpp.s
 .PHONY : src/lexer.cpp.s
+
+src/main.obj: src/main.cpp.obj
+.PHONY : src/main.obj
+
+# target to build an object file
+src/main.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/main.cpp.obj
+.PHONY : src/main.cpp.obj
+
+src/main.i: src/main.cpp.i
+.PHONY : src/main.i
+
+# target to preprocess a source file
+src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/main.cpp.i
+.PHONY : src/main.cpp.i
+
+src/main.s: src/main.cpp.s
+.PHONY : src/main.s
+
+# target to generate assembly for a file
+src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/main.cpp.s
+.PHONY : src/main.cpp.s
 
 src/parser.obj: src/parser.cpp.obj
 .PHONY : src/parser.obj
 
 # target to build an object file
 src/parser.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/src/parser.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/parser.cpp.obj
 .PHONY : src/parser.cpp.obj
 
 src/parser.i: src/parser.cpp.i
@@ -165,7 +213,7 @@ src/parser.i: src/parser.cpp.i
 
 # target to preprocess a source file
 src/parser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/src/parser.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/parser.cpp.i
 .PHONY : src/parser.cpp.i
 
 src/parser.s: src/parser.cpp.s
@@ -173,7 +221,7 @@ src/parser.s: src/parser.cpp.s
 
 # target to generate assembly for a file
 src/parser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\CppCompiler.dir\build.make CMakeFiles/CppCompiler.dir/src/parser.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\main.dir\build.make CMakeFiles/main.dir/src/parser.cpp.s
 .PHONY : src/parser.cpp.s
 
 # Help Target
@@ -184,10 +232,16 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... CppCompiler
+	@echo ... main
+	@echo ... src/evaluator.obj
+	@echo ... src/evaluator.i
+	@echo ... src/evaluator.s
 	@echo ... src/lexer.obj
 	@echo ... src/lexer.i
 	@echo ... src/lexer.s
+	@echo ... src/main.obj
+	@echo ... src/main.i
+	@echo ... src/main.s
 	@echo ... src/parser.obj
 	@echo ... src/parser.i
 	@echo ... src/parser.s
