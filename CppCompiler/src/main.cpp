@@ -3,6 +3,12 @@
 #include <iostream>
 #include "evaluator.h"
 
+/*
+cmake -G "MinGW Makefiles" .
+mingw32-make
+.\main.exe
+*/
+
 int main()
 {
     std::cout << "Enter an expression: ";

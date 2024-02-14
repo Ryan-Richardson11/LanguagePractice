@@ -2,13 +2,15 @@
 
 using namespace std;
 
-void fahrenheitToCelsius(int f){
+void fahrenheitToCelsius(int f)
+{
     int celsius;
-    celsius = (f - 32) * 5/9;
-    cout << "The temperature is " << celsius << " celsius"<< endl;
+    celsius = (f - 32) * 5 / 9;
+    cout << "The temperature is " << celsius << " celsius" << endl;
 }
 
-int main(){
+int main()
+{
     int f;
     cout << "Enter the temperature in fahrenheit: ";
     cin >> f;
