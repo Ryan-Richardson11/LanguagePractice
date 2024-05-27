@@ -26,7 +26,7 @@ class Encrypt:
 
     def hash_password(self):
         hashed = hashlib.sha256(
-            b'{self.password}'.format(), usedforsecurity=True).hexdigest()
+            f"{self.password}".encode(), usedforsecurity=True).hexdigest()
         return hashed
 
     def encrypt_dir():
