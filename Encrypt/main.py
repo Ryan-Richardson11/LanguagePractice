@@ -13,10 +13,11 @@ def main():
     print("Test2:", test.hash_password())
 
     window = Tk()
-    frame = ttk.Frame(window, padding=10)
+    frame = ttk.Frame(window, padding=250)
     frame.grid()
-    ttk.Label(frame, text="Hello World!").grid(column=0, row=0)
-    ttk.Button(frame, text="Quit", command=window.destroy).grid(
+    password = ttk.Entry(frame, text="Enter Password").grid(column=0, row=0)
+    test.set_password(password)
+    ttk.Button(frame, text="Hash password", command=test.hash_password()).grid(
         column=1, row=0)
     window.mainloop()
 
