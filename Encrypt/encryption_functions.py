@@ -6,14 +6,10 @@ import hashlib
 
 
 class Encrypt:
-    def __init__(self, file_name, file_path=None, password=None, dir=None):
+    def __init__(self, file_name, file_path=None, dir=None):
         self.file_name = file_name
         self.file_path = file_path
-        self.password = password
         self.dir = dir
-
-    def set_password(self, new_password):
-        self.password = new_password
 
     def encrypt_file(self, file_name):
         aes_key = get_random_bytes(16)
@@ -23,11 +19,6 @@ class Encrypt:
             for line in inputed_file:
                 encryption.encrypt(line)
         os.open(file_name)
-
-    def hash_password(self):
-        hashed = hashlib.sha256(
-            f"{self.password}".encode(), usedforsecurity=True).hexdigest()
-        return hashed
 
     def encrypt_dir():
         pass
