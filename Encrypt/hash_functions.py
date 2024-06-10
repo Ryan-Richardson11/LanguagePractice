@@ -4,13 +4,13 @@ import hashlib
 
 class Hash:
 
-    def __init__(self, password=None):
-        self.password = password
+    def __init__(self):
+        pass
 
-    def set_password(self, new_password):
-        self.password = new_password
+    # def set_password(self, new_password):
+    #     self.password = new_password
 
-    def hash_password(self):
+    def hash_password(self, password):
         hashed = hashlib.sha256(
-            f"{self.password}".encode(), usedforsecurity=True).hexdigest()
+            f"{password}".encode(), usedforsecurity=True).hexdigest()
         return hashed
