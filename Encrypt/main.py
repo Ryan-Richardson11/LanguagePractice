@@ -7,11 +7,16 @@ from tkinter import ttk
 def render_password_hash():
     current = Hash()
     window = Tk()
-    frame = ttk.Frame(window, padding=250)
-    frame.grid()
-    password = ttk.Entry(frame, text="Enter Password").grid(column=0, row=0)
-    ttk.Button(frame, text="Hash password", command=current.hash_password(password)).grid(
-        column=1, row=0)
+    window.geometry('600x400')
+
+    password_entry = Entry(window, width=30)
+    password_entry.pack()
+    password = password_entry.get()
+    hashed = current.hash_password(password)
+
+    Button(window, text="Hash password",
+           command=hashed).pack()
+
     window.mainloop()
 
 
