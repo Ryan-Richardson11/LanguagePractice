@@ -11,11 +11,18 @@ def render_password_hash():
 
     password_entry = Entry(window, width=30)
     password_entry.pack()
-    password = password_entry.get()
-    hashed = current.hash_password(password)
 
-    Button(window, text="Hash password",
-           command=hashed).pack()
+    hashed_output = Label(window, text="")
+    hashed_output.pack()
+
+    def hash_password_btn():
+        password = password_entry.get()
+        hashed = current.hash_password(password)
+        hashed_output.config(text=hashed)
+
+    btn = Button(window, text="Hash password",
+                 command=hash_password_btn)
+    btn.pack()
 
     window.mainloop()
 

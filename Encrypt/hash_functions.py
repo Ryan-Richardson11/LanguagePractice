@@ -1,6 +1,5 @@
 from Crypto.Hash import HMAC, SHA256
 import hashlib
-from hash_functions import Hash
 from tkinter import *
 from tkinter import ttk
 
