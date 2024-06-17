@@ -14,3 +14,9 @@ class Hash:
             f"{password}".encode(), usedforsecurity=True).hexdigest()
         print(hashed)
         return hashed
+
+    def hash_password_512(self, password):
+        hashed = hashlib.sha512(
+            f"{password}".encode(), usedforsecurity=True).hexdigest()
+        print(hashed)
+        return hashed
