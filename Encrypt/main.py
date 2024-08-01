@@ -80,10 +80,13 @@ def render_password_hash_page():
     md5_label = Label(hashing_options_frame_md5, text="MD5")
     md5_label.grid(row=0, column=3)
 
+    # USE RadioButton
+
     window.mainloop()
 
 
 def main():
+    # Renders initial page for choosing hashes and inputing password
     render_password_hash_page()
 
 
