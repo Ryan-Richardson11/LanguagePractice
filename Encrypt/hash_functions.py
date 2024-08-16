@@ -74,7 +74,7 @@ class Hash:
         return hashed
 
     # Utilizes the SHA-3 (shake-256) hashing algorithm
-    def hash_passwordhash_password_SHA3_shake256(self, password):
+    def hash_password_SHA3_shake256(self, password):
         hashed = hashlib.shake_256(
             f"{password}".encode(), usedforsecurity=True).hexdigest()
         print(hashed)
