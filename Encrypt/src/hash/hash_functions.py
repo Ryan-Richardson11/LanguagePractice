@@ -2,6 +2,7 @@ from Crypto.Hash import HMAC, SHA256
 import hashlib
 from tkinter import *
 from tkinter import ttk
+from pathlib import Path
 
 
 class Hash:
@@ -15,6 +16,10 @@ class Hash:
         hashed = hashlib.sha1(
             f"{password}".encode(), usedforsecurity=True).hexdigest()
         print(hashed)
+        return hashed
+
+    def hash_file_SHA1(self, file_path):
+        hashed = hashlib.file_digest(Path(f"{file_path}"), hashlib.sha1)
         return hashed
 
     # Utilizes the SHA-2 (224) hashing algorithm

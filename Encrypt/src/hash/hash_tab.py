@@ -86,15 +86,15 @@ def display_hash_tab(frame):
     password_entry.grid(row=1, column=0, columnspan=4, padx=10, pady=10)
 
     # Result Label
-    result_label = Label(frame, text="Hashed Password: ")
-    result_label.grid(row=2, column=0, columnspan=4, padx=10, pady=10)
+    password_result_label = Label(frame, text="Hashed Password: ")
+    password_result_label.grid(row=3, column=0, columnspan=4, padx=10, pady=10)
 
     # Hash Password Button
     def hash_password():
         password = password_entry.get()
         algorithm = selected_algorithm.get()
         if algorithm == "none":
-            result_label.config(text="Please select a hashing algorithm")
+            file_result_label.config(text="Please select a hashing algorithm")
             return
 
         hashed = None
@@ -121,7 +121,56 @@ def display_hash_tab(frame):
         elif algorithm == "md5":
             hashed = current.hash_password_md5(password)
 
-        result_label.config(text=f"Hashed Password: {hashed}")
+        password_result_label.config(text=f"Hashed Password: {hashed}")
 
-    hash_button = Button(frame, text="Hash Password", command=hash_password)
-    hash_button.grid(row=3, column=0, columnspan=4, padx=10, pady=10)
+    # File Entry
+    file_label = Label(frame, text="Enter File Path:")
+    file_label.grid(row=2, column=0, padx=20, pady=10)
+    file_entry = Entry(frame, width=40)
+    file_entry.grid(row=2, column=0, columnspan=4, padx=10, pady=10)
+
+    # File Result Label
+    file_result_label = Label(frame, text="File Hash Digest: ")
+    file_result_label.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
+
+    def hash_file():
+        file_path = file_entry.get()
+        algorithm = selected_algorithm.get()
+        if algorithm == "none":
+            file_result_label.config(text="Please select a hashing algorithm")
+            return
+
+        hashed = None
+        if algorithm == "sha1":
+            hashed = current.hash_file_SHA1(file_path)
+        # elif algorithm == "sha2_224":
+        #     hashed = current.hash_password_SHA2_224(password)
+        # elif algorithm == "sha2_256":
+        #     hashed = current.hash_password_SHA2_256(password)
+        # elif algorithm == "sha2_512":
+        #     hashed = current.hash_password_SHA2_512(password)
+        # elif algorithm == "sha3_224":
+        #     hashed = current.hash_password_SHA3_224(password)
+        # elif algorithm == "sha3_256":
+        #     hashed = current.hash_password_SHA3_256(password)
+        # elif algorithm == "sha3_384":
+        #     hashed = current.hash_password_SHA3_384(password)
+        # elif algorithm == "sha3_512":
+        #     hashed = current.hash_password_SHA3_512(password)
+        # elif algorithm == "sha3_shake128":
+        #     hashed = current.hash_password_SHA3_shake128(password)
+        # elif algorithm == "sha3_shake256":
+        #     hashed = current.hash_password_SHA3_shake256(password)
+        # elif algorithm == "md5":
+        #     hashed = current.hash_password_md5(password)
+
+        file_result_label.config(text=f"File Hash Digest: {hashed}")
+
+    # Password Hash Button
+    password_hash_button = Button(
+        frame, text="Hash Password", command=hash_password)
+    password_hash_button.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+
+    # File Hash Button
+    file_hash_button = Button(frame, text="Hash File", command=hash_file)
+    file_hash_button.grid(row=6, column=1, columnspan=4, padx=10, pady=10)
