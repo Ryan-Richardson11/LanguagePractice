@@ -1,9 +1,9 @@
-from src.hash import hash_tab
+from src.render.run_app import render_app
 
 
 def main():
-    # Renders initial page for choosing hashes and inputing password
-    hash_tab.render_hash_page()
+    # Renders GUI for the application
+    render_app()
 
 
 main()

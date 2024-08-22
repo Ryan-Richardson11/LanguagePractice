@@ -2,7 +2,7 @@ from src.hash.hash_functions import Hash
 from tkinter import *
 
 
-def display_hash_tab(frame):
+def display_encryption_tab(frame):
     current = Hash()
 
     # Frames to display different hashing options
