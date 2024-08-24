@@ -1,6 +1,12 @@
 from src.hash.hash_functions import Hash
 from tkinter import *
 
+"""
+Displays whole hash tab.
+Includes all hash functions
+Files and passwords are hashable
+"""
+
 
 def display_hash_tab(frame):
     current = Hash()
