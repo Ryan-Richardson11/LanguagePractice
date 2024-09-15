@@ -1,5 +1,6 @@
 from src.hash.hash_functions import Hash
 from tkinter import *
+from src.utils import add_salt
 
 """
 Displays whole hash tab.
@@ -172,6 +173,14 @@ def display_hash_tab(frame):
 
         file_result_label.config(text=f"File Hash Digest: {hashed}")
 
+    # Salt Result Label
+    file_result_label = Label(frame, text="Salt: ")
+    file_result_label.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
+
+    def generate_salt():
+        salt = add_salt()
+        file_result_label.config(text=f"Salt: {salt}")
+
     # Password Hash Button
     password_hash_button = Button(
         frame, text="Hash Password", command=hash_password)
@@ -180,3 +189,8 @@ def display_hash_tab(frame):
     # File Hash Button
     file_hash_button = Button(frame, text="Hash File", command=hash_file)
     file_hash_button.grid(row=6, column=1, columnspan=4, padx=10, pady=10)
+
+    # Salt Button
+    add_salt_button = Button(
+        frame, text="Generate Salt", command=generate_salt)
+    add_salt_button.grid(row=6, column=2, columnspan=6, padx=10, pady=10)
