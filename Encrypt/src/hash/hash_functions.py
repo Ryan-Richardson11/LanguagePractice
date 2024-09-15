@@ -19,7 +19,8 @@ class Hash:
         return hashed
 
     def hash_file_SHA1(self, file_path):
-        hashed = hashlib.file_digest(Path(f"{file_path}"), hashlib.sha1)
+        with open(file_path, 'rb', buffering=0) as f:
+            hashed = hashlib.file_digest(f, 'sha1').hexdigest()
         return hashed
 
     # Utilizes the SHA-2 (224) hashing algorithm
