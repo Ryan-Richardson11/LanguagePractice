@@ -1,5 +1,6 @@
 from src.hash.hash_functions import Hash
 from tkinter import *
+from tkinter import filedialog
 from src.utils import add_salt
 
 """
@@ -111,13 +112,17 @@ def display_hash_tab(frame):
 
     def hash_password():
         password = password_entry.get()
+        algorithm = selected_algorithm.get()
+        if algorithm == "none":
+            password_result_label.config(
+                text="Please select a hashing algorithm")
+            return
+        if password == "":
+            password_result_label.config(text="Please enter a password")
+            return
         if salt_applied:
             salt = salt_result_label.cget("text")[6:]
             password += salt
-        algorithm = selected_algorithm.get()
-        if algorithm == "none":
-            file_result_label.config(text="Please select a hashing algorithm")
-            return
 
         hashed = None
         if algorithm == "sha1":
@@ -165,6 +170,16 @@ def display_hash_tab(frame):
     file_entry = Entry(frame, width=40)
     file_entry.grid(row=2, column=0, columnspan=4, padx=10, pady=10)
 
+    def browse_local():
+        file_path = filedialog.askopenfilename()
+        if file_path:
+            file_entry.delete(0, END)
+            file_entry.insert(0, file_path)
+    browse_button = Button(
+        frame, text="Browse Local", command=browse_local)
+    browse_button.grid(row=2, column=2, columnspan=6,
+                       padx=10, pady=10)
+
     # File Result Label
     file_result_label = Label(frame, text="File Hash Digest: ")
     file_result_label.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
@@ -175,30 +190,33 @@ def display_hash_tab(frame):
         if algorithm == "none":
             file_result_label.config(text="Please select a hashing algorithm")
             return
+        if file_path == "":
+            file_result_label.config(text="Please enter a file path")
+            return
 
         hashed = None
         if algorithm == "sha1":
             hashed = current.hash_file_SHA1(file_path)
-        # elif algorithm == "sha2_224":
-        #     hashed = current.hash_password_SHA2_224(password)
-        # elif algorithm == "sha2_256":
-        #     hashed = current.hash_password_SHA2_256(password)
-        # elif algorithm == "sha2_512":
-        #     hashed = current.hash_password_SHA2_512(password)
-        # elif algorithm == "sha3_224":
-        #     hashed = current.hash_password_SHA3_224(password)
-        # elif algorithm == "sha3_256":
-        #     hashed = current.hash_password_SHA3_256(password)
-        # elif algorithm == "sha3_384":
-        #     hashed = current.hash_password_SHA3_384(password)
-        # elif algorithm == "sha3_512":
-        #     hashed = current.hash_password_SHA3_512(password)
-        # elif algorithm == "sha3_shake128":
-        #     hashed = current.hash_password_SHA3_shake128(password)
-        # elif algorithm == "sha3_shake256":
-        #     hashed = current.hash_password_SHA3_shake256(password)
-        # elif algorithm == "md5":
-        #     hashed = current.hash_password_md5(password)
+        elif algorithm == "sha2_224":
+            hashed = current.hash_password_SHA2_224(file_path)
+        elif algorithm == "sha2_256":
+            hashed = current.hash_password_SHA2_256(file_path)
+        elif algorithm == "sha2_512":
+            hashed = current.hash_password_SHA2_512(file_path)
+        elif algorithm == "sha3_224":
+            hashed = current.hash_password_SHA3_224(file_path)
+        elif algorithm == "sha3_256":
+            hashed = current.hash_password_SHA3_256(file_path)
+        elif algorithm == "sha3_384":
+            hashed = current.hash_password_SHA3_384(file_path)
+        elif algorithm == "sha3_512":
+            hashed = current.hash_password_SHA3_512(file_path)
+        elif algorithm == "sha3_shake128":
+            hashed = current.hash_password_SHA3_shake128(file_path)
+        elif algorithm == "sha3_shake256":
+            hashed = current.hash_password_SHA3_shake256(file_path)
+        elif algorithm == "md5":
+            hashed = current.hash_password_md5(file_path)
 
         file_result_label.config(text=f"File Hash Digest: {hashed}")
 
@@ -236,10 +254,10 @@ def display_hash_tab(frame):
 # End Create Salt
 # ===========================================================================================================================================================
 
+
 # ===========================================================================================================================================================
 # Start Refresh App
 # ===========================================================================================================================================================
-
 
 # ===========================================================================================================================================================
 # End Refresh App

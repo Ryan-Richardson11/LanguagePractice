@@ -1,4 +1,3 @@
-from Crypto.Hash import HMAC, SHA256
 import hashlib
 from tkinter import *
 
