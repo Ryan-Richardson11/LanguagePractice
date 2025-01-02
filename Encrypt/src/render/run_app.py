@@ -8,7 +8,7 @@ import src.utils as utils
 def render_app():
     window = Tk()
     window.title("Password Hashing")
-    window.geometry('800x500')
+    window.geometry('1000x500')
 
     # Creates a Notebook widget
     notebook = ttk.Notebook(window)
