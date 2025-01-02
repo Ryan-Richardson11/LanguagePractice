@@ -8,6 +8,10 @@ Includes all hash functions
 Files and passwords are hashable
 """
 
+# ===========================================================================================================================================================
+# Start Build Hash Frame
+# ===========================================================================================================================================================
+
 
 def display_hash_tab(frame):
     current = Hash()
@@ -86,19 +90,30 @@ def display_hash_tab(frame):
         hashing_options_frame_md5, "MD5", "md5", 0, 0)
     md5_radio.grid(row=0, column=0, padx=10, pady=10)
 
+# ===========================================================================================================================================================
+# End Build Hash Frame
+# ===========================================================================================================================================================
+
+
+# ===========================================================================================================================================================
+# Start Hash Password
+# ===========================================================================================================================================================
+
     # Password Entry
     password_label = Label(frame, text="Enter Password:")
     password_label.grid(row=1, column=0, padx=20, pady=10)
     password_entry = Entry(frame, width=40)
     password_entry.grid(row=1, column=0, columnspan=4, padx=10, pady=10)
 
-    # Result Label
+    # Password Result Label
     password_result_label = Label(frame, text="Hashed Password: ")
     password_result_label.grid(row=3, column=0, columnspan=4, padx=10, pady=10)
 
-    # Hash Password Button
     def hash_password():
         password = password_entry.get()
+        if salt_applied:
+            salt = salt_result_label.cget("text")[6:]
+            password += salt
         algorithm = selected_algorithm.get()
         if algorithm == "none":
             file_result_label.config(text="Please select a hashing algorithm")
@@ -129,6 +144,20 @@ def display_hash_tab(frame):
             hashed = current.hash_password_md5(password)
 
         password_result_label.config(text=f"Hashed Password: {hashed}")
+
+    # Password Hash Button
+    password_hash_button = Button(
+        frame, text="Hash Password", command=hash_password)
+    password_hash_button.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
+
+# ===========================================================================================================================================================
+# End Hash Password
+# ===========================================================================================================================================================
+
+
+# ===========================================================================================================================================================
+# Start Hash File
+# ===========================================================================================================================================================
 
     # File Entry
     file_label = Label(frame, text="Enter File Path:")
@@ -173,24 +202,45 @@ def display_hash_tab(frame):
 
         file_result_label.config(text=f"File Hash Digest: {hashed}")
 
-    # Salt Result Label
-    file_result_label = Label(frame, text="Salt: ")
-    file_result_label.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
-
-    def generate_salt():
-        salt = add_salt()
-        file_result_label.config(text=f"Salt: {salt}")
-
-    # Password Hash Button
-    password_hash_button = Button(
-        frame, text="Hash Password", command=hash_password)
-    password_hash_button.grid(row=6, column=0, columnspan=2, padx=10, pady=10)
-
     # File Hash Button
     file_hash_button = Button(frame, text="Hash File", command=hash_file)
-    file_hash_button.grid(row=6, column=1, columnspan=4, padx=10, pady=10)
+    file_hash_button.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
+
+# ===========================================================================================================================================================
+# End Hash File
+# ===========================================================================================================================================================
+
+
+# ===========================================================================================================================================================
+# Start Create Salt
+# ===========================================================================================================================================================
+
+    # Salt Result Label
+    salt_result_label = Label(frame, text="Salt: ")
+    salt_result_label.grid(row=5, column=0, columnspan=4, padx=10, pady=10)
+
+    salt_applied = False
+
+    def generate_salt():
+        nonlocal salt_applied
+        salt = add_salt()
+        salt_result_label.config(text=f"Salt: {salt}")
+        salt_applied = True
 
     # Salt Button
     add_salt_button = Button(
         frame, text="Generate Salt", command=generate_salt)
     add_salt_button.grid(row=6, column=2, columnspan=6, padx=10, pady=10)
+
+# ===========================================================================================================================================================
+# End Create Salt
+# ===========================================================================================================================================================
+
+# ===========================================================================================================================================================
+# Start Refresh App
+# ===========================================================================================================================================================
+
+
+# ===========================================================================================================================================================
+# End Refresh App
+# ===========================================================================================================================================================

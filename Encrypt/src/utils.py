@@ -14,10 +14,3 @@ def add_salt():
     salt = "".join(random.SystemRandom().choice(
         string.ascii_letters + string.digits) for i in range(16))
     return salt
-
-
-def main():
-    print(add_salt())
-
-
-main()
