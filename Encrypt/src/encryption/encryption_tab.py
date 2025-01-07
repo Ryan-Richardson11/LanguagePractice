@@ -116,11 +116,10 @@ def display_encryption_tab(frame):
             file_result_label.config(text="Please select a hashing algorithm")
             return
 
-        encrypted = None
         if algorithm == "aes-e":
-            encrypted = current.encrypt_AES(file_path)
+            current.encrypt_AES(file_path)
         elif algorithm == "aes-d":
-            encrypted = current.decrypt_AES(file_path)
+            current.decrypt_AES(file_path)
         # elif algorithm == "sha2_256":
         #     hashed = current.hash_password_SHA2_256(password)
         # elif algorithm == "sha2_512":
@@ -141,7 +140,7 @@ def display_encryption_tab(frame):
         #     hashed = current.hash_password_md5(password)
 
         file_result_label.config(
-            text=f"File Save as {encrypted}")
+            text=f"File Save as {file_path}.enc")
 
     # File Hash Button
     file_hash_button = Button(frame, text="Execute", command=encrypt_file)
