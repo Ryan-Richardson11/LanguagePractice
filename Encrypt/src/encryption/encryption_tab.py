@@ -1,7 +1,6 @@
 from src.encryption.encryption_functions import Encrypt
 from tkinter import *
 from tkinter import filedialog
-import os
 
 # ===========================================================================================================================================================
 # End Build Encrypt Frame
@@ -142,10 +141,10 @@ def display_encryption_tab(frame):
         #     hashed = current.hash_password_md5(password)
 
         file_result_label.config(
-            text=f"Encrypted filed saved to: {os.path(encrypted)}")
+            text=f"File Save as {encrypted}")
 
     # File Hash Button
-    file_hash_button = Button(frame, text="Hash File", command=encrypt_file)
+    file_hash_button = Button(frame, text="Execute", command=encrypt_file)
     file_hash_button.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
 
 # ===========================================================================================================================================================

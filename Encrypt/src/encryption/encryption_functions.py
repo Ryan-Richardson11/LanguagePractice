@@ -1,6 +1,5 @@
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
-import os
 
 
 class Encrypt:
@@ -27,25 +26,27 @@ class Encrypt:
 
         print(f"File encrypted and saved as {encrypted_file}")
 
-    def decrypt_AES(self, encrypted_file):
+    def decrypt_AES(self, encrypted_file_name):
         # Open the encrypted file and read the nonce, AES key, and encrypted data
-        with open(encrypted_file, "rb") as encrypted_file:
+        with open(encrypted_file_name, "rb") as encrypted_file:
             nonce = encrypted_file.read(8)
             aes_key = encrypted_file.read(16)
             encrypted_data = encrypted_file.read()
 
-        # Creates AES cipher in CTR mode with the same nonce and key
+        # Create AES cipher in CTR mode with the same nonce and key
         encryption = AES.new(aes_key, AES.MODE_CTR, nonce=nonce)
 
-        # Decrypts the data
+        # Decrypt the data
         decrypted_data = encryption.decrypt(encrypted_data)
 
-        # Saves the decrypted data to a new file
-        decrypted_file = encrypted_file.replace(".enc", "_decrypted")
-        with open(decrypted_file, "wb") as decrypted_file:
+        # Replace ".enc" in the file name to create the decrypted file name
+        decrypted_file_name = encrypted_file_name.replace(".enc", "_decrypted")
+
+        # Save the decrypted data to the new file
+        with open(decrypted_file_name, "wb") as decrypted_file:
             decrypted_file.write(decrypted_data)
 
-        print(f"File decrypted and saved as {decrypted_file}")
+        print(f"File decrypted and saved as {decrypted_file_name}")
 
     def cryptographic_erase():
         pass
