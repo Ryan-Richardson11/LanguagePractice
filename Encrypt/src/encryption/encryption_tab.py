@@ -1,6 +1,7 @@
 from src.encryption.encryption_functions import Encrypt
 from tkinter import *
 from tkinter import filedialog
+import os
 
 # ===========================================================================================================================================================
 # End Build Encrypt Frame
@@ -106,21 +107,21 @@ def display_encryption_tab(frame):
                        padx=10, pady=10)
 
     # File Result Label
-    file_result_label = Label(frame, text="File Hash Digest: ")
+    file_result_label = Label(frame, text="Encypted File: ")
     file_result_label.grid(row=4, column=0, columnspan=4, padx=10, pady=10)
 
-    def hash_file():
+    def encrypt_file():
         file_path = file_entry.get()
         algorithm = selected_algorithm.get()
         if algorithm == "none":
             file_result_label.config(text="Please select a hashing algorithm")
             return
 
-        hashed = None
-        if algorithm == "aes":
+        encrypted = None
+        if algorithm == "aes-e":
             encrypted = current.encrypt_AES(file_path)
-        # elif algorithm == "sha2_224":
-        #     hashed = current.hash_password_SHA2_224(password)
+        elif algorithm == "aes-d":
+            encrypted = current.decrypt_AES(file_path)
         # elif algorithm == "sha2_256":
         #     hashed = current.hash_password_SHA2_256(password)
         # elif algorithm == "sha2_512":
@@ -140,10 +141,11 @@ def display_encryption_tab(frame):
         # elif algorithm == "md5":
         #     hashed = current.hash_password_md5(password)
 
-        file_result_label.config(text=f"File Hash Digest: {hashed}")
+        file_result_label.config(
+            text=f"Encrypted filed saved to: {os.path(encrypted)}")
 
     # File Hash Button
-    file_hash_button = Button(frame, text="Hash File", command=hash_file)
+    file_hash_button = Button(frame, text="Hash File", command=encrypt_file)
     file_hash_button.grid(row=6, column=0, columnspan=4, padx=10, pady=10)
 
 # ===========================================================================================================================================================
