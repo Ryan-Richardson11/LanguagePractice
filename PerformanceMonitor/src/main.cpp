@@ -3,6 +3,7 @@
 using namespace std;
 
 // g++ main.cpp PerformanceMonitor.cpp -o main
+// ./main.exe
 
 int main()
 {
